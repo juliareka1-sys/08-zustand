@@ -13,7 +13,9 @@ interface NoteDetailsProps {
   }>;
 }
 
-export async function generateMetadata({ params }: NoteDetailsProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: NoteDetailsProps): Promise<Metadata> {
   const { id } = await params;
   const note = await fetchNoteById(id);
   return {
@@ -23,17 +25,16 @@ export async function generateMetadata({ params }: NoteDetailsProps): Promise<Me
       title: `${note.title}`,
       description: note.content.slice(0, 30),
       url: `https://notehub.com/notes/${id}`,
-      images:
-        [{
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
           width: 1200,
           height: 630,
-          alt: 'NoteHub - note'
-        }]
-
-    }
-  }
-  
+          alt: 'NoteHub - note',
+        },
+      ],
+    },
+  };
 }
 
 const NoteDetails = async ({ params }: NoteDetailsProps) => {

@@ -15,30 +15,30 @@ interface PropsFromNext {
   params: Promise<SlugBox>;
 }
 
-export async function generateMetadata({ params }: PropsFromNext): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: PropsFromNext): Promise<Metadata> {
   const { slug } = await params;
   const tagName = slug[0];
-  
+
   return {
-    title: `Notes:${tagName}`,
+    title: `Notes: ${tagName}`,
     description: `Notes filtered by tag: ${tagName}`,
     openGraph: {
-      title: `Notes:${tagName}`,
+      title: `Notes: ${tagName}`,
       description: `Notes filtered by tag: ${tagName}`,
       url: `https://notehub.com/notes/filter/${tagName}`,
-      images:
-        [{
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+      images: [
+        {
+          url: 'https://ac.goit.global/fullstack/react/notehub-og-meta.jpg',
           width: 1200,
           height: 630,
-          alt: 'NoteHub - Notes filtered by tag'
-        }]
-
-    }
-  
-  }
+          alt: 'NoteHub - Notes filtered by tag',
+        },
+      ],
+    },
+  };
 }
-
 
 const Notes = async ({ params }: PropsFromNext) => {
   const slugBox = await params;

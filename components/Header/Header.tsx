@@ -10,10 +10,14 @@ export default function Header() {
       <nav aria-label="Main Navigation">
         <ul className={css.navigation}>
           <li className={css.navigationItem}>
-            <Link href="/" className={css.navigationLink}>Home</Link>
+            <Link href="/" className={css.navigationLink}>
+              Home
+            </Link>
           </li>
           <li className={css.navigationItem}>
-            <Link href="/notes/filter/all" className={css.navigationLink}>Notes</Link>
+            <Link href="/notes/filter/all" className={css.navigationLink}>
+              Notes
+            </Link>
           </li>
         </ul>
       </nav>

@@ -6,9 +6,8 @@ import { useDebouncedCallback } from 'use-debounce';
 import NoteList from '@/components/NoteList/NoteList';
 import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
-import Modal from '@/components/Modal/Modal';
-import NoteForm from '@/components/NoteForm/NoteForm';
 import { fetchNotes } from '@/lib/api';
+import Link from 'next/link';
 
 interface NotesProps {
   tag: string;
@@ -17,7 +16,6 @@ interface NotesProps {
 export default function NotesClient({ tag }: NotesProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [page, setPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const notesQuery = useQuery({
     queryKey: ['notes', searchQuery, page, tag],
@@ -33,7 +31,7 @@ export default function NotesClient({ tag }: NotesProps) {
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
-        {<SearchBox onSearch={debouncedSearch} />}
+        <SearchBox onSearch={debouncedSearch} />
         {notesQuery.data && notesQuery.data.totalPages > 1 && (
           <Pagination
             totalPages={notesQuery.data.totalPages}
@@ -41,19 +39,13 @@ export default function NotesClient({ tag }: NotesProps) {
             onPageChange={setPage}
           />
         )}
-        {
-          <button className={css.button} onClick={() => setIsModalOpen(true)}>
-            Create note +
-          </button>
-        }
+
+        <Link href="/notes/action/create" className={css.button}>
+          Create note +
+        </Link>
       </header>
       {notesQuery.data && notesQuery.data.notes.length > 0 && (
         <NoteList notes={notesQuery.data.notes} />
-      )}
-      {isModalOpen && (
-        <Modal onClose={() => setIsModalOpen(false)}>
-          <NoteForm formAction={() => setIsModalOpen(false)} />
-        </Modal>
       )}
     </div>
   );
